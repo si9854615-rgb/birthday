@@ -1,0 +1,228 @@
+# birthday<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Private Birthday Surprise 💖</title>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body{
+margin:0;
+padding:0;
+background:linear-gradient(to top,#1a2a6c,#b21f1f,#fdbb2d);
+background-attachment:fixed;
+color:white;
+font-family:'Segoe UI',cursive;
+text-align:center;
+overflow-x:hidden;
+}
+
+h1{
+margin-top:70px;
+font-size:36px;
+text-shadow:0 0 10px pink;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:25px;
+background:#ff4da6;
+color:white;
+font-size:16px;
+margin-top:18px;
+box-shadow:0 0 12px #ff4da6;
+cursor:pointer;
+}
+
+.hidden{display:none;}
+
+#gameArea{
+position:relative;
+height:220px;
+}
+
+.heart{
+position:absolute;
+font-size:26px;
+cursor:pointer;
+}
+
+#message{
+width:85%;
+margin:auto;
+font-size:17px;
+min-height:120px;
+white-space:pre-line;
+margin-top:20px;
+}
+
+#secretBox{
+margin-top:20px;
+padding:15px;
+border-radius:15px;
+background:rgba(255,255,255,0.15);
+display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<script>
+// 🔐 PASSWORD PROTECTION
+var password = "cutiepatootie";
+var userInput = prompt("Enter the secret password 💖");
+
+if(userInput !== password){
+document.body.innerHTML = "<h2 style='color:white;text-align:center;margin-top:100px;'>Access Denied 💔</h2>";
+}
+</script>
+
+<h1>Happy Birthday Ipsha 💖</h1>
+
+<button onclick="startExperience()">Enter My Heart ✨</button>
+
+<div id="main" class="hidden">
+
+<h3 id="countdown"></h3>
+
+<div id="game" class="hidden">
+<h3>Catch 3 Hearts 💕</h3>
+<div id="gameArea"></div>
+</div>
+
+<div id="cake" class="hidden">
+<h3>Tap to Cut Cake 🎂</h3>
+<div style="font-size:90px;">🎂</div>
+<button onclick="cutCake()">Cut Cake</button>
+</div>
+
+<div id="love" class="hidden">
+<div id="message"></div>
+
+<button onclick="forever()">Will You Stay Forever? 💍</button>
+<br>
+<button onclick="unlockSecret()">🔐 Unlock Hidden Message</button>
+
+<div id="secretBox">
+🌸 Secret Message 🌸  
+
+Ipsha…  
+
+You are the most precious part of my world.  
+Your smile feels like sunrise after a long night.  
+Your presence makes ordinary days magical.  
+
+No matter what happens in life,  
+my respect and care for you  
+will always remain pure and true. 💖  
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Romantic Song (Loop) -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/tblr7964Ksc?autoplay=1&loop=1&playlist=tblr7964Ksc"
+allow="autoplay"></iframe>
+
+<script>
+
+function startExperience(){
+document.querySelector("button").style.display="none";
+document.getElementById("main").classList.remove("hidden");
+startCountdown();
+}
+
+// Countdown
+function startCountdown(){
+let birthday=new Date("Feb 28, 2026 00:00:00").getTime();
+let timer=setInterval(()=>{
+let now=new Date().getTime();
+let distance=birthday-now;
+if(distance<0){
+clearInterval(timer);
+document.getElementById("countdown").innerHTML="🎉 It's Your Special Day 🎉";
+startGame();
+}else{
+let days=Math.floor(distance/(1000*60*60*24));
+document.getElementById("countdown").innerHTML="Only "+days+" days left 💕";
+}
+},1000);
+}
+
+// Mini Love Game
+function startGame(){
+document.getElementById("game").classList.remove("hidden");
+let score=0;
+for(let i=0;i<3;i++){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💖";
+heart.style.top=Math.random()*170+"px";
+heart.style.left=Math.random()*75+"vw";
+heart.onclick=function(){
+this.remove();
+score++;
+if(score==3){
+document.getElementById("game").classList.add("hidden");
+document.getElementById("cake").classList.remove("hidden");
+}
+}
+document.getElementById("gameArea").appendChild(heart);
+}
+}
+
+// Cake Cut
+function cutCake(){
+document.getElementById("cake").classList.add("hidden");
+confetti({particleCount:120,spread:70});
+document.getElementById("love").classList.remove("hidden");
+typeMessage();
+}
+
+// Romantic Message
+let text=`Ipsha 💖
+
+You are the most beautiful chapter
+in my life story.
+
+Your kindness, your smile,
+your soft heart —
+they make this world brighter.
+
+May your birthday be filled with joy.
+May your dreams shine endlessly.
+May happiness follow you always.
+
+You deserve the best in life. ✨`;
+
+let i=0;
+function typeMessage(){
+if(i<text.length){
+document.getElementById("message").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typeMessage,35);
+}
+}
+
+function forever(){
+document.getElementById("message").innerHTML+=`
+
+💍 Forever isn't long enough with you.
+Thank you for being part of my world. 💕`;
+}
+
+function unlockSecret(){
+document.getElementById("secretBox").style.display="block";
+confetti({particleCount:60,spread:60});
+}
+
+</script>
+
+</body>
+</html>
